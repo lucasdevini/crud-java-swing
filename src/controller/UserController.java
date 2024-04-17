@@ -66,6 +66,7 @@ public class UserController {
             if(connection.authUser(email, currentPassword)) {
                 if(repeatNewPassword.equals(newPassword)) {
                     connection.updateUserPassword(email, newPassword);
+                    System.out.println("Senha alterada com sucesso!");
                 } else {
                     System.out.println("As senhas não coincidem!");
                 }
@@ -74,4 +75,19 @@ public class UserController {
             }   
         }
     }
+
+    public static void deleteAccount(String email, String password) {
+        if(password == null || password.trim().isEmpty()) {
+            System.out.println("Preencha o campo senha!");
+        } else {
+            UserDAO connection = new UserDAO();
+                
+            if(connection.authUser(email, password)) {
+                connection.deleteUser(email);
+                System.out.println("Conta excluída!");
+            } else {
+                System.out.println("Senha errada!");
+            } 
+        } 
+    }    
 }

@@ -26,6 +26,9 @@ public class UserScreen extends javax.swing.JFrame {
         changePasswordButton = new javax.swing.JButton();
         currentPasswordLabel = new javax.swing.JLabel();
         deleteAccountMenu = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        deleteAccountPasswordField = new javax.swing.JPasswordField();
+        deleteAccountButton = new javax.swing.JButton();
 
         jInternalFrame1.setVisible(true);
 
@@ -112,15 +115,42 @@ public class UserScreen extends javax.swing.JFrame {
 
         mainMenu.addTab("Alterar senha", changePasswordMenu);
 
+        jLabel1.setText("Para excluir sua conta, digite sua senha");
+
+        deleteAccountButton.setText("Exluir conta");
+        deleteAccountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAccountButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout deleteAccountMenuLayout = new javax.swing.GroupLayout(deleteAccountMenu);
         deleteAccountMenu.setLayout(deleteAccountMenuLayout);
         deleteAccountMenuLayout.setHorizontalGroup(
             deleteAccountMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(deleteAccountMenuLayout.createSequentialGroup()
+                .addGroup(deleteAccountMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(deleteAccountMenuLayout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel1))
+                    .addGroup(deleteAccountMenuLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(deleteAccountPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(deleteAccountMenuLayout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(deleteAccountButton)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         deleteAccountMenuLayout.setVerticalGroup(
             deleteAccountMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(deleteAccountMenuLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteAccountPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(deleteAccountButton)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         mainMenu.addTab("Excluir conta", deleteAccountMenu);
@@ -170,6 +200,14 @@ public class UserScreen extends javax.swing.JFrame {
         UserController.changeUserPassword(email, currentPassword, newPassword, repeatNewPassword);
     }//GEN-LAST:event_changePasswordButtonActionPerformed
 
+    private void deleteAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountButtonActionPerformed
+        String email = userEmail.getText();
+        String password = String.valueOf(deleteAccountPasswordField.getPassword());
+        
+        UserController.deleteAccount(email, password);
+        dispose();
+    }//GEN-LAST:event_deleteAccountButtonActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -206,8 +244,11 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JPanel changePasswordMenu;
     private javax.swing.JTextField currentPasswordField;
     private javax.swing.JLabel currentPasswordLabel;
+    private javax.swing.JButton deleteAccountButton;
     private javax.swing.JPanel deleteAccountMenu;
+    private javax.swing.JPasswordField deleteAccountPasswordField;
     private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTabbedPane mainMenu;
     private javax.swing.JTextField newPasswordField;
     private javax.swing.JLabel newPasswordLabel;

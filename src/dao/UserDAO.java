@@ -70,5 +70,15 @@ public class UserDAO {
             } catch(Exception e) {
                 e.printStackTrace();
             }
+        }
+        
+        public void deleteUser(String email) {
+            try {
+                PreparedStatement psDelete = connection.prepareStatement("DELETE FROM users WHERE email = ?");
+                psDelete.setString(1, email);
+                psDelete.executeUpdate();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }    
 }
