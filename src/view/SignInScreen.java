@@ -72,7 +72,14 @@ public class SignInScreen extends javax.swing.JFrame {
         String email = emailField.getText().toLowerCase();
         String password = String.valueOf(passwordField.getPassword());
         
-        UserController.signIn(email, password);
+        if(UserController.signIn(email, password) != null) {
+            dispose();
+            
+            UserScreen userScreen = new UserScreen();
+            userScreen.setVisible(true);
+        } else {
+            
+        }
     }//GEN-LAST:event_signInButtonActionPerformed
 
     public static void main(String args[]) {
