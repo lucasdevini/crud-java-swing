@@ -51,5 +51,27 @@ public class UserController {
                 return null;
             } 
         }
+    }    
+
+    public static void changeUserPassword(String email, String currentPassword, String newPassword, String repeatNewPassword) {
+        if((currentPassword == null || currentPassword.trim().isEmpty())
+          || (newPassword == null || newPassword.trim().isEmpty())
+          || (repeatNewPassword == null || repeatNewPassword.trim().isEmpty())) {
+            System.out.println("Prencha todos campos!");
+        } else {
+            UserDAO connection = new UserDAO();
+            
+            System.out.println(email);
+            
+            if(connection.authUser(email, currentPassword)) {
+                if(repeatNewPassword.equals(newPassword)) {
+                    connection.updateUserPassword(email, newPassword);
+                } else {
+                    System.out.println("As senhas não coincidem!");
+                }
+            } else {
+                System.out.println("Senha errada!");
+            }   
+        }
     }
 }

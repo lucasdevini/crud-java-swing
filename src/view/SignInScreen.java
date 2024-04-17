@@ -1,6 +1,7 @@
 package view;
 
 import controller.UserController;
+import model.User;
 
 public class SignInScreen extends javax.swing.JFrame {
 
@@ -72,14 +73,15 @@ public class SignInScreen extends javax.swing.JFrame {
         String email = emailField.getText().toLowerCase();
         String password = String.valueOf(passwordField.getPassword());
         
-        if(UserController.signIn(email, password) != null) {
+        User user = UserController.signIn(email, password);
+        
+        if(user != null) {
             dispose();
             
-            UserScreen userScreen = new UserScreen();
+            UserScreen userScreen = new UserScreen();  
+            userScreen.loadUserInformation(user);
             userScreen.setVisible(true);
-        } else {
-            
-        }
+        } 
     }//GEN-LAST:event_signInButtonActionPerformed
 
     public static void main(String args[]) {

@@ -60,4 +60,15 @@ public class UserDAO {
                 return false;
             }
         }
+
+        public void updateUserPassword(String email, String newPassword) {
+            try {
+                PreparedStatement psUpdate = connection.prepareStatement("UPDATE users SET password = ? WHERE email = ?");
+                psUpdate.setString(1, newPassword);
+                psUpdate.setString(2, email);
+                psUpdate.executeUpdate();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }    
 }
