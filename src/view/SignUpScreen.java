@@ -113,9 +113,8 @@ public class SignUpScreen extends javax.swing.JFrame {
         String password = String.valueOf(passwordField.getPassword());
         String repeatPassword = String.valueOf(repeatPasswordField.getPassword());
 
-        UserController.createUser(email, password, repeatPassword);
-        
-        moveToSignInScreen();
+        if(UserController.createUser(email, password, repeatPassword))
+            moveToSignInScreen();
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
