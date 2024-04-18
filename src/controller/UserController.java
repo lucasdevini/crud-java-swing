@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JOptionPane;
+
 import dao.UserDAO;
 import model.User;
 
@@ -7,35 +9,36 @@ public class UserController {
     public static boolean createUser(String email, String password, String repeatPassword) {
             if((email == null || email.trim().isEmpty()) || (password == null || password.trim().isEmpty()) 
             || (repeatPassword == null || repeatPassword.trim().isEmpty())) {
-                            System.out.println("Dados de entrada inválidos!");
-                            return false;
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+                return false;
             } else {
-                    if(repeatPassword.equals(password)) {
-                            User user = new User();
+                if(repeatPassword.equals(password)) {
+                    User user = new User();
 
-                            user.setEmail(email);
-                            user.setPassword(repeatPassword);
+                    user.setEmail(email);
+                    user.setPassword(repeatPassword);
 
-                            UserDAO connection = new UserDAO();
+                    UserDAO connection = new UserDAO();
 
-                            if(connection.findByEmail(email)) {
-                                    System.out.println("O usuário já está cadastrado!");
-                                    return false;
-                            } else {
-                                    connection.insertUser(user);
-
-                                    System.out.println("Usuário criado com sucesso!");
-                                    return true;
-                            }		
+                    if(connection.findByEmail(email)) {
+                        JOptionPane.showMessageDialog(null, "O usuário já existe!");
+                        return false;
                     } else {
-                            System.out.println("As senhas não batem!");
-                            return false;
-                    }
+                        connection.insertUser(user);
+
+                        JOptionPane.showMessageDialog(null, "Conta criada com sucesso!");
+                        return true;
+                    }		
+                } else {
+                    JOptionPane.showMessageDialog(null, "As senhas não correspondem!");
+                    return false;
+                }
             }		
     }
 
     public static User signIn(String email, String password) {
         if((email == null || email.trim().isEmpty()) || (password == null || password.trim().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
             return null;
         } else {
             UserDAO connection = new UserDAO();
@@ -47,7 +50,7 @@ public class UserController {
 
                 return user;
             } else {
-                System.out.println("Credenciais inválidas!");
+                JOptionPane.showMessageDialog(null, "Credenciais inválidas!");
                 return null;
             } 
         }
@@ -57,36 +60,35 @@ public class UserController {
         if((currentPassword == null || currentPassword.trim().isEmpty())
           || (newPassword == null || newPassword.trim().isEmpty())
           || (repeatNewPassword == null || repeatNewPassword.trim().isEmpty())) {
-            System.out.println("Prencha todos campos!");
+            JOptionPane.showMessageDialog(null, "Prencha todos campos!");
         } else {
             UserDAO connection = new UserDAO();
-            
-            System.out.println(email);
-            
+                        
             if(connection.authUser(email, currentPassword)) {
                 if(repeatNewPassword.equals(newPassword)) {
                     connection.updateUserPassword(email, newPassword);
-                    System.out.println("Senha alterada com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!");
                 } else {
-                    System.out.println("As senhas não coincidem!");
+                    JOptionPane.showMessageDialog(null, "As senhas não correspondem!");
                 }
             } else {
-                System.out.println("Senha errada!");
+                JOptionPane.showMessageDialog(null, "Senha atual errada!");
             }   
         }
     }
 
     public static boolean deleteAccount(String email, String password) {
         if(password == null || password.trim().isEmpty()) {
-            System.out.println("Preencha o campo senha!");
+            JOptionPane.showMessageDialog(null, "Preencha o campo senha!");
             return false;
         } else {
             UserDAO connection = new UserDAO();
                 
             if(connection.authUser(email, password)) {
+                JOptionPane.showMessageDialog(null, "Conta excluída!");
                 return connection.deleteUser(email);
             } else {
-                System.out.println("Senha errada!");
+                JOptionPane.showMessageDialog(null, "Senha errada!");
                 return false;
             } 
         } 
