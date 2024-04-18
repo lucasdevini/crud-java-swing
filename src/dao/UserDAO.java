@@ -14,37 +14,37 @@ public class UserDAO {
     private final String dbPassword = "";
 
     public UserDAO() {
-            try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    connection = DriverManager.getConnection(URLDB, dbUser, dbPassword);
-            } catch (Exception e) {
-                    e.printStackTrace();
-            }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(URLDB, dbUser, dbPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean insertUser(User user) {
-            try {
-                    PreparedStatement psInsert = connection.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)");
-                    psInsert.setString(1, user.getEmail());
-                    psInsert.setString(2, user.getPassword());
-                    return psInsert.execute();
-            } catch(Exception e) {
-                    e.printStackTrace();
-                    return false;
-            }
+        try {
+            PreparedStatement psInsert = connection.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)");
+            psInsert.setString(1, user.getEmail());
+            psInsert.setString(2, user.getPassword());
+            return psInsert.execute();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean findByEmail(String email) {
-            try {
-                PreparedStatement psFind = connection.prepareStatement("SELECT * FROM users WHERE email = ?");
-                psFind.setString(1, email);
-                ResultSet result = psFind.executeQuery();
+        try {
+            PreparedStatement psFind = connection.prepareStatement("SELECT * FROM users WHERE email = ?");
+            psFind.setString(1, email);
+            ResultSet result = psFind.executeQuery();
 
-                return result.next();
-            } catch(Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+            return result.next();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean authUser(String email, String password) {
