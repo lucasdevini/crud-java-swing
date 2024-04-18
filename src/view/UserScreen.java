@@ -204,8 +204,14 @@ public class UserScreen extends javax.swing.JFrame {
         String email = userEmail.getText();
         String password = String.valueOf(deleteAccountPasswordField.getPassword());
         
-        UserController.deleteAccount(email, password);
-        dispose();
+        if(UserController.deleteAccount(email, password)) {
+            System.out.println("Conta excluída!");
+            
+            dispose();
+        
+            SignUpScreen signUp = new SignUpScreen();
+            signUp.setVisible(true);
+        }
     }//GEN-LAST:event_deleteAccountButtonActionPerformed
 
     public static void main(String args[]) {
