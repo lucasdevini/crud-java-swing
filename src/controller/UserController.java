@@ -76,17 +76,18 @@ public class UserController {
         }
     }
 
-    public static void deleteAccount(String email, String password) {
+    public static boolean deleteAccount(String email, String password) {
         if(password == null || password.trim().isEmpty()) {
             System.out.println("Preencha o campo senha!");
+            return false;
         } else {
             UserDAO connection = new UserDAO();
                 
             if(connection.authUser(email, password)) {
-                connection.deleteUser(email);
-                System.out.println("Conta excluída!");
+                return connection.deleteUser(email);
             } else {
                 System.out.println("Senha errada!");
+                return false;
             } 
         } 
     }    
