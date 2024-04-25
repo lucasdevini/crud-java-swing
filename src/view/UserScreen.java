@@ -198,6 +198,10 @@ public class UserScreen extends javax.swing.JFrame {
         String repeatNewPassword = repeatNewPasswordField.getText();
         
         UserController.changeUserPassword(email, currentPassword, newPassword, repeatNewPassword);
+        
+        currentPasswordField.setText("");
+        newPasswordField.setText("");
+        repeatNewPasswordField.setText("");
     }//GEN-LAST:event_changePasswordButtonActionPerformed
 
     private void deleteAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountButtonActionPerformed
